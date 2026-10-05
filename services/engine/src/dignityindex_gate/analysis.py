@@ -60,6 +60,17 @@ ADJUDICATION_FLOOR: Final[int] = 50
 #: A case may not be released below this index.
 RELEASE_FLOOR: Final[int] = 60
 
+#: Appeal service-level thresholds, in hours. 72h is the good-practice line; 14 days is the
+#: outer limit past which contestability is treated as weak rather than absent.
+APPEAL_FAST_HOURS: Final[int] = 72
+APPEAL_MAX_HOURS: Final[int] = 336
+
+#: Population thresholds that reduce the proportionality score. Named because they are
+#: policy, not incidental numbers, and a reviewer needs to see them in one place.
+POPULATION_MEDIUM: Final[int] = 10_000
+POPULATION_LARGE: Final[int] = 100_000
+POPULATION_HUGE: Final[int] = 1_000_000
+
 #: Domains where an automated decision is treated as a dignity harm on its face.
 HIGH_IMPACT: Final[frozenset[str]] = frozenset(
     {"hiring", "credit", "healthcare", "education", "benefits", "welfare", "legal", "moderation"}
@@ -356,22 +367,22 @@ def _score_contestability(declaration: Declaration) -> tuple[int, str]:
     if not decision["appealable"]:
         return 0, "there is no appeal route for a person affected by the outcome"
     sla = decision["appealSlaHours"]
-    if sla <= 72:
+    if sla <= APPEAL_FAST_HOURS:
         return 100, f"appealable within {sla}h"
-    if sla <= 336:
-        return 70, f"appealable within {sla}h (longer than the 72h good-practice line)"
-    return 40, f"appealable within {sla}h (longer than 14 days)"
+    if sla <= APPEAL_MAX_HOURS:
+        return 70, f"appealable within {sla}h (longer than the {APPEAL_FAST_HOURS}h good-practice line)"
+    return 40, f"appealable within {sla}h (longer than {APPEAL_MAX_HOURS // 24} days)"
 
 
 def _score_proportionality(declaration: Declaration) -> tuple[int, str]:
     impact = declaration["impact"]
     score = 100
     size = impact["populationSize"]
-    if size > 1_000_000:
+    if size > POPULATION_HUGE:
         score -= 60
-    elif size > 100_000:
+    elif size > POPULATION_LARGE:
         score -= 35
-    elif size > 10_000:
+    elif size > POPULATION_MEDIUM:
         score -= 15
     if impact["monitors"]:
         score -= 25
@@ -510,14 +521,14 @@ def advisory_findings(declaration: Declaration) -> list[Finding]:
     findings: list[Finding] = []
     decision = declaration["decision"]
 
-    if decision["appealable"] and decision["appealSlaHours"] > 336:
+    if decision["appealable"] and decision["appealSlaHours"] > APPEAL_MAX_HOURS:
         findings.append(
             Finding(
                 code="SLOW_APPEAL",
                 severity="advisory",
                 message=(
-                    f"appeal SLA is {decision['appealSlaHours']}h; 14 days is the outer "
-                    "good-practice line"
+                    f"appeal SLA is {decision['appealSlaHours']}h; "
+                    f"{APPEAL_MAX_HOURS // 24} days is the outer good-practice line"
                 ),
             )
         )
@@ -609,60 +620,71 @@ def score(payload: Any) -> Verdict:
 
 # ---------------------------------------------------------------- the state machine
 
+#: The index floor a transition target requires, or None when the target has no floor.
+FLOORS_BY_TARGET: Final[dict[str, int]] = {
+    "adjudicated": ADJUDICATION_FLOOR,
+    "released": RELEASE_FLOOR,
+}
+
+
+def _guard_evidence(
+    declaration: Declaration, state: str, target: str
+) -> RefusedEdge | None:
+    """draft -> evidenced requires a reference for every mandatory harm class."""
+    if state != "draft" or target != "evidenced":
+        return None
+    missing = _missing_mandatory(declaration)
+    if not missing:
+        return None
+    return RefusedEdge(
+        target=target,
+        code="MISSING_EVIDENCE",
+        message="mandatory harm classes without an evidence reference: " + ", ".join(missing),
+    )
+
+
+def _guard_floor(target: str, verdict: Verdict) -> RefusedEdge | None:
+    """A target with a floor refuses anything below it."""
+    floor = FLOORS_BY_TARGET.get(target)
+    if floor is None or verdict["index"] >= floor:
+        return None
+    return RefusedEdge(
+        target=target,
+        code="INDEX_BELOW_FLOOR",
+        message=f"index {verdict['index']} is below the {target} floor of {floor}",
+    )
+
+
+def _guard_blocking(
+    target: str, verdict: Verdict, *, at_release: bool
+) -> RefusedEdge | None:
+    """A floor-gated target also refuses while a blocking finding is open."""
+    if target not in FLOORS_BY_TARGET or not verdict["blocking"]:
+        return None
+    codes = ", ".join(sorted({finding["code"] for finding in verdict["blocking"]}))
+    message = (
+        f"blocking findings remain: {codes}"
+        if at_release
+        else f"blocking findings must be cleared first: {codes}"
+    )
+    return RefusedEdge(target=target, code="BLOCKING_FINDINGS", message=message)
+
 
 def _guard(
     declaration: Declaration, state: str, target: str, verdict: Verdict
 ) -> RefusedEdge | None:
-    """Return a refusal when a guard fails, or None when the transition may proceed."""
-    index = verdict["index"]
+    """Return a refusal when a guard fails, or None when the transition may proceed.
 
-    if state == "draft" and target == "evidenced":
-        missing = _missing_mandatory(declaration)
-        if missing:
-            return RefusedEdge(
-                target=target,
-                code="MISSING_EVIDENCE",
-                message="mandatory harm classes without an evidence reference: "
-                + ", ".join(missing),
-            )
-        return None
-
-    if target == "adjudicated":
-        if index < ADJUDICATION_FLOOR:
-            return RefusedEdge(
-                target=target,
-                code="INDEX_BELOW_FLOOR",
-                message=f"index {index} is below the adjudication floor of {ADJUDICATION_FLOOR}",
-            )
-        if verdict["blocking"]:
-            codes = ", ".join(sorted({f["code"] for f in verdict["blocking"]}))
-            return RefusedEdge(
-                target=target,
-                code="BLOCKING_FINDINGS",
-                message=f"blocking findings must be cleared first: {codes}",
-            )
-        return None
-
-    if state == "adjudicated" and target == "released":
-        if index < RELEASE_FLOOR:
-            return RefusedEdge(
-                target=target,
-                code="INDEX_BELOW_FLOOR",
-                message=f"index {index} is below the release floor of {RELEASE_FLOOR}",
-            )
-        if verdict["blocking"]:
-            codes = ", ".join(sorted({f["code"] for f in verdict["blocking"]}))
-            return RefusedEdge(
-                target=target,
-                code="BLOCKING_FINDINGS",
-                message=f"blocking findings remain: {codes}",
-            )
-        return None
-
-    if target == "contested" and state in ("evidenced", "adjudicated"):
-        # Reopening is always permitted by the table; nothing to guard.
-        return None
-
+    Three guards, checked in a fixed order so the refusal a caller sees is deterministic:
+    evidence, then the index floor, then blocking findings.
+    """
+    for guard in (
+        _guard_evidence(declaration, state, target),
+        _guard_floor(target, verdict),
+        _guard_blocking(target, verdict, at_release=target == "released"),
+    ):
+        if guard is not None:
+            return guard
     return None
 
 
@@ -795,8 +817,8 @@ def board(payload: Any) -> BoardOutput:
     columns: dict[str, list[BoardRow]] = {state: [] for state in STATES}
     for row in rows:
         columns[row["state"]].append(row)
-    for state in columns:
-        columns[state].sort(key=lambda r: r["caseId"])
+    for column in columns.values():
+        column.sort(key=lambda entry: entry["caseId"])
 
     totals = {
         "cases": len(rows),

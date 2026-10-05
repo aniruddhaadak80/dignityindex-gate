@@ -105,9 +105,7 @@ try {
   // A tools/call that reaches the Python engine, not just the registry.
   const registry = buildToolRegistry(ROOT)
   const entry = JSON.parse(
-    await import('node:fs').then((fs) =>
-      fs.readFileSync(join(ROOT, 'corpus', 'declarations.json'), 'utf8'),
-    ),
+    await import('node:fs').then((fs) => fs.readFileSync(join(ROOT, 'corpus', 'declarations.json'), 'utf8')),
   ).cases[0]
 
   const scored = await request('tools/call', {
@@ -116,7 +114,9 @@ try {
   })
   const verdict = JSON.parse(scored.result.content[0].text)
   console.log(`\ntools/call gate_score ->`)
-  console.log(`  ${entry.declaration.caseId} index=${verdict.index} band=${verdict.band} releasable=${verdict.releasable}`)
+  console.log(
+    `  ${entry.declaration.caseId} index=${verdict.index} band=${verdict.band} releasable=${verdict.releasable}`,
+  )
   console.log(`  components: ${verdict.components.map((c) => `${c.harmClass}=${c.score}`).join(' ')}`)
   console.log(`  blocking: ${verdict.blocking.length}  advisory: ${verdict.advisory.length}`)
 
@@ -133,7 +133,9 @@ try {
   // A genuine fault must come back as an MCP error envelope.
   const faulted = await request('tools/call', { name: 'gate_score', arguments: {} })
   console.log(`\ntools/call gate_score {} ->`)
-  console.log(`  isError=${faulted.result?.isError} ${String(faulted.result?.content?.[0]?.text).slice(0, 80)}`)
+  console.log(
+    `  isError=${faulted.result?.isError} ${String(faulted.result?.content?.[0]?.text).slice(0, 80)}`,
+  )
 
   console.log(`\nregistry agrees: ${registry.size} tools, ${tools.length} exposed over MCP`)
   if (tools.length !== registry.size) {

@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 import pytest
-from hypothesis import assume, given, settings
+from hypothesis import given, settings
 from hypothesis import strategies as st
 
 from dignityindex_gate.analysis import (
@@ -30,7 +30,7 @@ REFUSAL_CODES = {
 }
 
 
-def declaration(
+def declaration(  # noqa: PLR0913 - a test fixture builder is clearer with explicit named knobs
     case_id: str = "CASE-0001",
     domain: str = "credit",
     *,

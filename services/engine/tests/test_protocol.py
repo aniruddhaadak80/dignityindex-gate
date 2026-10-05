@@ -6,6 +6,7 @@ import json
 import pytest
 
 from dignityindex_gate.__main__ import handle
+from dignityindex_gate.analysis import OPERATIONS
 from dignityindex_gate.protocol import EngineError, dispatch, read_request, write_response
 
 
@@ -74,6 +75,4 @@ class TestHandle:
         assert caught.value.code == "BAD_SHAPE"
 
     def test_every_advertised_operation_is_reachable(self) -> None:
-        from dignityindex_gate.analysis import OPERATIONS
-
         assert set(OPERATIONS) == {"score", "transitions", "advance", "board", "matrix"}
