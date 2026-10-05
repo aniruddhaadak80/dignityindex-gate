@@ -1,0 +1,32 @@
+{
+  "name": "@dignityindexgate/sdk",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "Apache-2.0",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\""
+  },
+  "dependencies": {
+    "@dignityindexgate/core": "0.1.0",
+    "@dignityindexgate/skills": "0.1.0",
+    "@dignityindexgate/plugins": "0.1.0",
+    "@dignityindexgate/channels": "0.1.0",
+    "@dignityindexgate/providers": "0.1.0",
+    "@dignityindexgate/memory": "0.1.0"
+  }
+}

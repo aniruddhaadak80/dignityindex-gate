@@ -1,0 +1,257 @@
+{
+  "$comment": "The review corpus. Every case is a real-shaped declaration of an AI system that decides something about people. This file is INPUT: it is hand-maintained facts, never computed output. Generated verdicts live in apps/web/lib/generated/board.json and are produced by the deterministic engine.",
+  "cases": [
+    {
+      "state": "evidenced",
+      "declaration": {
+        "caseId": "CASE-0001",
+        "system": "triage-priority",
+        "domain": "healthcare",
+        "decision": {
+          "automated": true,
+          "humanInLoop": true,
+          "appealable": true,
+          "appealSlaHours": 72
+        },
+        "data": {
+          "trainsOnPeople": true,
+          "proxies": ["postcode"],
+          "specialCategories": ["health"]
+        },
+        "impact": {
+          "populationSize": 2400000,
+          "reversible": true,
+          "monitors": false
+        },
+        "evidence": [
+          { "harmClass": "autonomy", "ref": "doc://policy/clinician-signoff-v3" },
+          { "harmClass": "data_sovereignty", "ref": "doc://dpi/2025-014" },
+          { "harmClass": "reversibility", "ref": "doc://policy/queue-reversal-runbook" }
+        ]
+      }
+    },
+    {
+      "state": "draft",
+      "declaration": {
+        "caseId": "CASE-0002",
+        "system": "resume-screen",
+        "domain": "hiring",
+        "decision": {
+          "automated": true,
+          "humanInLoop": false,
+          "appealable": false,
+          "appealSlaHours": 0
+        },
+        "data": {
+          "trainsOnPeople": true,
+          "proxies": ["name", "postcode"],
+          "specialCategories": []
+        },
+        "impact": {
+          "populationSize": 180000,
+          "reversible": false,
+          "monitors": false
+        },
+        "evidence": []
+      }
+    },
+    {
+      "state": "adjudicated",
+      "declaration": {
+        "caseId": "CASE-0003",
+        "system": "credit-score-v5",
+        "domain": "credit",
+        "decision": {
+          "automated": true,
+          "humanInLoop": true,
+          "appealable": true,
+          "appealSlaHours": 168
+        },
+        "data": {
+          "trainsOnPeople": false,
+          "proxies": [],
+          "specialCategories": []
+        },
+        "impact": {
+          "populationSize": 50000,
+          "reversible": true,
+          "monitors": false
+        },
+        "evidence": [
+          { "harmClass": "autonomy", "ref": "doc://policy/human-review" },
+          { "harmClass": "contestability", "ref": "doc://policy/appeal-charter" },
+          { "harmClass": "proportionality", "ref": "doc://analysis/scale-review" },
+          { "harmClass": "data_sovereignty", "ref": "doc://analysis/proxy-audit" }
+        ]
+      }
+    },
+    {
+      "state": "blocked",
+      "declaration": {
+        "caseId": "CASE-0004",
+        "system": "benefits-eligibility",
+        "domain": "benefits",
+        "decision": {
+          "automated": true,
+          "humanInLoop": false,
+          "appealable": false,
+          "appealSlaHours": 0
+        },
+        "data": {
+          "trainsOnPeople": true,
+          "proxies": ["postcode"],
+          "specialCategories": ["health"]
+        },
+        "impact": {
+          "populationSize": 900000,
+          "reversible": false,
+          "monitors": true
+        },
+        "evidence": []
+      }
+    },
+    {
+      "state": "contested",
+      "declaration": {
+        "caseId": "CASE-0005",
+        "system": "attendance-risk",
+        "domain": "education",
+        "decision": {
+          "automated": true,
+          "humanInLoop": true,
+          "appealable": true,
+          "appealSlaHours": 720
+        },
+        "data": {
+          "trainsOnPeople": false,
+          "proxies": ["postcode"],
+          "specialCategories": []
+        },
+        "impact": {
+          "populationSize": 42000,
+          "reversible": true,
+          "monitors": true
+        },
+        "evidence": [
+          { "harmClass": "autonomy", "ref": "doc://policy/tutor-review" },
+          { "harmClass": "contestability", "ref": "doc://policy/appeal-form" }
+        ]
+      }
+    },
+    {
+      "state": "remediated",
+      "declaration": {
+        "caseId": "CASE-0006",
+        "system": "welfare-fraud-score",
+        "domain": "welfare",
+        "decision": {
+          "automated": true,
+          "humanInLoop": true,
+          "appealable": true,
+          "appealSlaHours": 336
+        },
+        "data": {
+          "trainsOnPeople": true,
+          "proxies": ["postcode", "device"],
+          "specialCategories": []
+        },
+        "impact": {
+          "populationSize": 310000,
+          "reversible": true,
+          "monitors": false
+        },
+        "evidence": [
+          { "harmClass": "autonomy", "ref": "doc://policy/caseworker-signoff" },
+          { "harmClass": "contestability", "ref": "doc://policy/reversal-window" },
+          { "harmClass": "data_sovereignty", "ref": "doc://dpi/2025-031-rev2" }
+        ]
+      }
+    },
+    {
+      "state": "released",
+      "declaration": {
+        "caseId": "CASE-0007",
+        "system": "content-moderation-queue",
+        "domain": "moderation",
+        "decision": {
+          "automated": true,
+          "humanInLoop": true,
+          "appealable": true,
+          "appealSlaHours": 48
+        },
+        "data": {
+          "trainsOnPeople": false,
+          "proxies": [],
+          "specialCategories": []
+        },
+        "impact": {
+          "populationSize": 8200000,
+          "reversible": true,
+          "monitors": false
+        },
+        "evidence": [
+          { "harmClass": "contestability", "ref": "doc://policy/appeal-charter" },
+          { "harmClass": "transparency", "ref": "doc://policy/reason-codes" },
+          { "harmClass": "reversibility", "ref": "doc://policy/moderation-undo" }
+        ]
+      }
+    },
+    {
+      "state": "adjudicated",
+      "declaration": {
+        "caseId": "CASE-0008",
+        "system": "legal-case-prioritisation",
+        "domain": "legal",
+        "decision": {
+          "automated": true,
+          "humanInLoop": true,
+          "appealable": true,
+          "appealSlaHours": 2160
+        },
+        "data": {
+          "trainsOnPeople": false,
+          "proxies": ["name"],
+          "specialCategories": []
+        },
+        "impact": {
+          "populationSize": 12000,
+          "reversible": true,
+          "monitors": false
+        },
+        "evidence": [
+          { "harmClass": "autonomy", "ref": "doc://policy/partner-review" },
+          { "harmClass": "contestability", "ref": "doc://policy/reassign-request" },
+          { "harmClass": "proportionality", "ref": "doc://analysis/queue-depth" }
+        ]
+      }
+    },
+    {
+      "state": "released",
+      "declaration": {
+        "caseId": "CASE-0009",
+        "system": "feed-recommender",
+        "domain": "recommendation",
+        "decision": {
+          "automated": true,
+          "humanInLoop": true,
+          "appealable": true,
+          "appealSlaHours": 24
+        },
+        "data": {
+          "trainsOnPeople": true,
+          "proxies": [],
+          "specialCategories": []
+        },
+        "impact": {
+          "populationSize": 1500000,
+          "reversible": true,
+          "monitors": true
+        },
+        "evidence": [
+          { "harmClass": "autonomy", "ref": "doc://policy/why-this-feed" },
+          { "harmClass": "transparency", "ref": "doc://policy/explanation-card" }
+        ]
+      }
+    }
+  ]
+}

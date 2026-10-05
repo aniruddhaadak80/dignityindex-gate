@@ -1,0 +1,9 @@
+{
+  "name": "policy-notes",
+  "version": "1.0.0",
+  "description": "Annotates each refusal code with the policy clause that justifies it.",
+  "enabled": true,
+  "priority": 60,
+  "capabilities": ["gate.policy.read"],
+  "engines": { "@dignityindexgate/core": "0.1.0" }
+}

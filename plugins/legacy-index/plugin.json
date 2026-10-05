@@ -1,0 +1,9 @@
+{
+  "name": "legacy-index",
+  "version": "0.9.0",
+  "description": "An older index weighting, kept loaded to prove shadowing is reported rather than silently dropped.",
+  "enabled": true,
+  "priority": 20,
+  "capabilities": ["gate.policy.read"],
+  "engines": { "@dignityindexgate/core": "0.1.0" }
+}

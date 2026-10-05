@@ -1,0 +1,1438 @@
+{
+  "generatedBy": "services/engine (dignityindex_gate)",
+  "note": "Generated file. Run `npm run generate:web-data` after editing corpus/declarations.json.",
+  "matrix": {
+    "states": [
+      "draft",
+      "evidenced",
+      "contested",
+      "remediated",
+      "adjudicated",
+      "released",
+      "blocked"
+    ],
+    "edges": [
+      {
+        "source": "draft",
+        "target": "draft",
+        "legal": false
+      },
+      {
+        "source": "draft",
+        "target": "evidenced",
+        "legal": true
+      },
+      {
+        "source": "draft",
+        "target": "contested",
+        "legal": false
+      },
+      {
+        "source": "draft",
+        "target": "remediated",
+        "legal": false
+      },
+      {
+        "source": "draft",
+        "target": "adjudicated",
+        "legal": false
+      },
+      {
+        "source": "draft",
+        "target": "released",
+        "legal": false
+      },
+      {
+        "source": "draft",
+        "target": "blocked",
+        "legal": true
+      },
+      {
+        "source": "evidenced",
+        "target": "draft",
+        "legal": false
+      },
+      {
+        "source": "evidenced",
+        "target": "evidenced",
+        "legal": false
+      },
+      {
+        "source": "evidenced",
+        "target": "contested",
+        "legal": true
+      },
+      {
+        "source": "evidenced",
+        "target": "remediated",
+        "legal": false
+      },
+      {
+        "source": "evidenced",
+        "target": "adjudicated",
+        "legal": true
+      },
+      {
+        "source": "evidenced",
+        "target": "released",
+        "legal": false
+      },
+      {
+        "source": "evidenced",
+        "target": "blocked",
+        "legal": true
+      },
+      {
+        "source": "contested",
+        "target": "draft",
+        "legal": false
+      },
+      {
+        "source": "contested",
+        "target": "evidenced",
+        "legal": false
+      },
+      {
+        "source": "contested",
+        "target": "contested",
+        "legal": false
+      },
+      {
+        "source": "contested",
+        "target": "remediated",
+        "legal": true
+      },
+      {
+        "source": "contested",
+        "target": "adjudicated",
+        "legal": false
+      },
+      {
+        "source": "contested",
+        "target": "released",
+        "legal": false
+      },
+      {
+        "source": "contested",
+        "target": "blocked",
+        "legal": true
+      },
+      {
+        "source": "remediated",
+        "target": "draft",
+        "legal": false
+      },
+      {
+        "source": "remediated",
+        "target": "evidenced",
+        "legal": false
+      },
+      {
+        "source": "remediated",
+        "target": "contested",
+        "legal": true
+      },
+      {
+        "source": "remediated",
+        "target": "remediated",
+        "legal": false
+      },
+      {
+        "source": "remediated",
+        "target": "adjudicated",
+        "legal": true
+      },
+      {
+        "source": "remediated",
+        "target": "released",
+        "legal": false
+      },
+      {
+        "source": "remediated",
+        "target": "blocked",
+        "legal": true
+      },
+      {
+        "source": "adjudicated",
+        "target": "draft",
+        "legal": false
+      },
+      {
+        "source": "adjudicated",
+        "target": "evidenced",
+        "legal": false
+      },
+      {
+        "source": "adjudicated",
+        "target": "contested",
+        "legal": true
+      },
+      {
+        "source": "adjudicated",
+        "target": "remediated",
+        "legal": false
+      },
+      {
+        "source": "adjudicated",
+        "target": "adjudicated",
+        "legal": false
+      },
+      {
+        "source": "adjudicated",
+        "target": "released",
+        "legal": true
+      },
+      {
+        "source": "adjudicated",
+        "target": "blocked",
+        "legal": true
+      },
+      {
+        "source": "released",
+        "target": "draft",
+        "legal": false
+      },
+      {
+        "source": "released",
+        "target": "evidenced",
+        "legal": false
+      },
+      {
+        "source": "released",
+        "target": "contested",
+        "legal": false
+      },
+      {
+        "source": "released",
+        "target": "remediated",
+        "legal": false
+      },
+      {
+        "source": "released",
+        "target": "adjudicated",
+        "legal": false
+      },
+      {
+        "source": "released",
+        "target": "released",
+        "legal": false
+      },
+      {
+        "source": "released",
+        "target": "blocked",
+        "legal": true
+      },
+      {
+        "source": "blocked",
+        "target": "draft",
+        "legal": true
+      },
+      {
+        "source": "blocked",
+        "target": "evidenced",
+        "legal": false
+      },
+      {
+        "source": "blocked",
+        "target": "contested",
+        "legal": false
+      },
+      {
+        "source": "blocked",
+        "target": "remediated",
+        "legal": false
+      },
+      {
+        "source": "blocked",
+        "target": "adjudicated",
+        "legal": false
+      },
+      {
+        "source": "blocked",
+        "target": "released",
+        "legal": false
+      },
+      {
+        "source": "blocked",
+        "target": "blocked",
+        "legal": false
+      }
+    ],
+    "floors": {
+      "adjudication": 50,
+      "release": 60
+    },
+    "weights": {
+      "autonomy": 25,
+      "contestability": 20,
+      "data_sovereignty": 15,
+      "proportionality": 15,
+      "reversibility": 10,
+      "transparency": 15
+    }
+  },
+  "board": {
+    "columns": {
+      "draft": [
+        {
+          "caseId": "CASE-0002",
+          "system": "resume-screen",
+          "domain": "hiring",
+          "state": "draft",
+          "index": 14,
+          "band": "insufficient",
+          "blocking": 3,
+          "advisory": 2,
+          "releasable": false,
+          "next": [
+            "blocked"
+          ]
+        }
+      ],
+      "evidenced": [
+        {
+          "caseId": "CASE-0001",
+          "system": "triage-priority",
+          "domain": "healthcare",
+          "state": "evidenced",
+          "index": 72,
+          "band": "clear",
+          "blocking": 0,
+          "advisory": 1,
+          "releasable": true,
+          "next": [
+            "contested",
+            "adjudicated",
+            "blocked"
+          ]
+        }
+      ],
+      "contested": [
+        {
+          "caseId": "CASE-0005",
+          "system": "attendance-risk",
+          "domain": "education",
+          "state": "contested",
+          "index": 66,
+          "band": "clear",
+          "blocking": 0,
+          "advisory": 4,
+          "releasable": true,
+          "next": [
+            "remediated",
+            "blocked"
+          ]
+        }
+      ],
+      "remediated": [
+        {
+          "caseId": "CASE-0006",
+          "system": "welfare-fraud-score",
+          "domain": "welfare",
+          "state": "remediated",
+          "index": 70,
+          "band": "clear",
+          "blocking": 0,
+          "advisory": 1,
+          "releasable": true,
+          "next": [
+            "adjudicated",
+            "contested",
+            "blocked"
+          ]
+        }
+      ],
+      "adjudicated": [
+        {
+          "caseId": "CASE-0003",
+          "system": "credit-score-v5",
+          "domain": "credit",
+          "state": "adjudicated",
+          "index": 84,
+          "band": "clear",
+          "blocking": 0,
+          "advisory": 0,
+          "releasable": true,
+          "next": [
+            "released",
+            "contested",
+            "blocked"
+          ]
+        },
+        {
+          "caseId": "CASE-0008",
+          "system": "legal-case-prioritisation",
+          "domain": "legal",
+          "state": "adjudicated",
+          "index": 71,
+          "band": "clear",
+          "blocking": 0,
+          "advisory": 3,
+          "releasable": true,
+          "next": [
+            "released",
+            "contested",
+            "blocked"
+          ]
+        }
+      ],
+      "released": [
+        {
+          "caseId": "CASE-0007",
+          "system": "content-moderation-queue",
+          "domain": "moderation",
+          "state": "released",
+          "index": 83,
+          "band": "clear",
+          "blocking": 0,
+          "advisory": 0,
+          "releasable": true,
+          "next": [
+            "blocked"
+          ]
+        },
+        {
+          "caseId": "CASE-0009",
+          "system": "feed-recommender",
+          "domain": "recommendation",
+          "state": "released",
+          "index": 75,
+          "band": "clear",
+          "blocking": 0,
+          "advisory": 1,
+          "releasable": true,
+          "next": [
+            "blocked"
+          ]
+        }
+      ],
+      "blocked": [
+        {
+          "caseId": "CASE-0004",
+          "system": "benefits-eligibility",
+          "domain": "benefits",
+          "state": "blocked",
+          "index": 9,
+          "band": "insufficient",
+          "blocking": 4,
+          "advisory": 3,
+          "releasable": false,
+          "next": [
+            "draft"
+          ]
+        }
+      ]
+    },
+    "states": [
+      "draft",
+      "evidenced",
+      "contested",
+      "remediated",
+      "adjudicated",
+      "released",
+      "blocked"
+    ],
+    "totals": {
+      "cases": 9,
+      "released": 2,
+      "blocked": 1,
+      "withBlockingFindings": 2
+    },
+    "meanIndex": 60
+  },
+  "cases": [
+    {
+      "caseId": "CASE-0001",
+      "state": "evidenced",
+      "system": "triage-priority",
+      "domain": "healthcare",
+      "verdict": {
+        "caseId": "CASE-0001",
+        "domain": "healthcare",
+        "system": "triage-priority",
+        "index": 72,
+        "band": "clear",
+        "releasable": true,
+        "components": [
+          {
+            "harmClass": "autonomy",
+            "weight": 25,
+            "score": 70,
+            "rationale": "automated, human-reviewed, and contestable"
+          },
+          {
+            "harmClass": "contestability",
+            "weight": 20,
+            "score": 100,
+            "rationale": "appealable within 72h"
+          },
+          {
+            "harmClass": "proportionality",
+            "weight": 15,
+            "score": 40,
+            "rationale": "affects 2400000 people; continuous monitoring: False"
+          },
+          {
+            "harmClass": "transparency",
+            "weight": 15,
+            "score": 100,
+            "rationale": "3/3 mandatory harm classes carry an evidence reference"
+          },
+          {
+            "harmClass": "data_sovereignty",
+            "weight": 15,
+            "score": 25,
+            "rationale": "trains on people: True; special categories: 1; proxy variables: 1"
+          },
+          {
+            "harmClass": "reversibility",
+            "weight": 10,
+            "score": 100,
+            "rationale": "a decision can be undone"
+          }
+        ],
+        "blocking": [],
+        "advisory": [
+          {
+            "code": "PROXY_VARIABLES",
+            "severity": "advisory",
+            "message": "1 proxy variable(s) declared: postcode"
+          }
+        ],
+        "mandatory": [
+          "autonomy",
+          "data_sovereignty",
+          "reversibility"
+        ],
+        "evidenced": [
+          "autonomy",
+          "data_sovereignty",
+          "reversibility"
+        ]
+      },
+      "transitions": {
+        "state": "evidenced",
+        "legal": [
+          "contested",
+          "adjudicated",
+          "blocked"
+        ],
+        "refused": [
+          {
+            "target": "draft",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge evidenced -> draft"
+          },
+          {
+            "target": "evidenced",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge evidenced -> evidenced"
+          },
+          {
+            "target": "remediated",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge evidenced -> remediated"
+          },
+          {
+            "target": "released",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge evidenced -> released"
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "CASE-0002",
+      "state": "draft",
+      "system": "resume-screen",
+      "domain": "hiring",
+      "verdict": {
+        "caseId": "CASE-0002",
+        "domain": "hiring",
+        "system": "resume-screen",
+        "index": 14,
+        "band": "insufficient",
+        "releasable": false,
+        "components": [
+          {
+            "harmClass": "autonomy",
+            "weight": 25,
+            "score": 0,
+            "rationale": "the decision is automated and no human reviews it"
+          },
+          {
+            "harmClass": "contestability",
+            "weight": 20,
+            "score": 0,
+            "rationale": "there is no appeal route for a person affected by the outcome"
+          },
+          {
+            "harmClass": "proportionality",
+            "weight": 15,
+            "score": 65,
+            "rationale": "affects 180000 people; continuous monitoring: False"
+          },
+          {
+            "harmClass": "transparency",
+            "weight": 15,
+            "score": 0,
+            "rationale": "0/3 mandatory harm classes carry an evidence reference"
+          },
+          {
+            "harmClass": "data_sovereignty",
+            "weight": 15,
+            "score": 30,
+            "rationale": "trains on people: True; proxy variables: 2"
+          },
+          {
+            "harmClass": "reversibility",
+            "weight": 10,
+            "score": 0,
+            "rationale": "a decision cannot be undone"
+          }
+        ],
+        "blocking": [
+          {
+            "code": "NO_HUMAN_REVIEW",
+            "severity": "blocking",
+            "message": "the decision is automated and no human reviews it before it takes effect"
+          },
+          {
+            "code": "NO_APPEAL",
+            "severity": "blocking",
+            "message": "hiring decisions require an appeal route for the person affected"
+          },
+          {
+            "code": "IRREVERSIBLE_HIGH_IMPACT",
+            "severity": "blocking",
+            "message": "a hiring decision that cannot be undone cannot be released"
+          }
+        ],
+        "advisory": [
+          {
+            "code": "PROXY_VARIABLES",
+            "severity": "advisory",
+            "message": "2 proxy variable(s) declared: name, postcode"
+          },
+          {
+            "code": "EVIDENCE_INCOMPLETE",
+            "severity": "advisory",
+            "message": "mandatory harm classes still lacking an evidence reference: autonomy, contestability, transparency"
+          }
+        ],
+        "mandatory": [
+          "autonomy",
+          "contestability",
+          "transparency"
+        ],
+        "evidenced": []
+      },
+      "transitions": {
+        "state": "draft",
+        "legal": [
+          "blocked"
+        ],
+        "refused": [
+          {
+            "target": "evidenced",
+            "code": "MISSING_EVIDENCE",
+            "message": "mandatory harm classes without an evidence reference: autonomy, contestability, transparency"
+          },
+          {
+            "target": "draft",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge draft -> draft"
+          },
+          {
+            "target": "contested",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge draft -> contested"
+          },
+          {
+            "target": "remediated",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge draft -> remediated"
+          },
+          {
+            "target": "adjudicated",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge draft -> adjudicated"
+          },
+          {
+            "target": "released",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge draft -> released"
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "CASE-0003",
+      "state": "adjudicated",
+      "system": "credit-score-v5",
+      "domain": "credit",
+      "verdict": {
+        "caseId": "CASE-0003",
+        "domain": "credit",
+        "system": "credit-score-v5",
+        "index": 84,
+        "band": "clear",
+        "releasable": true,
+        "components": [
+          {
+            "harmClass": "autonomy",
+            "weight": 25,
+            "score": 70,
+            "rationale": "automated, human-reviewed, and contestable"
+          },
+          {
+            "harmClass": "contestability",
+            "weight": 20,
+            "score": 70,
+            "rationale": "appealable within 168h (longer than the 72h good-practice line)"
+          },
+          {
+            "harmClass": "proportionality",
+            "weight": 15,
+            "score": 85,
+            "rationale": "affects 50000 people; continuous monitoring: False"
+          },
+          {
+            "harmClass": "transparency",
+            "weight": 15,
+            "score": 100,
+            "rationale": "4/4 mandatory harm classes carry an evidence reference"
+          },
+          {
+            "harmClass": "data_sovereignty",
+            "weight": 15,
+            "score": 100,
+            "rationale": "trains on people: False"
+          },
+          {
+            "harmClass": "reversibility",
+            "weight": 10,
+            "score": 100,
+            "rationale": "a decision can be undone"
+          }
+        ],
+        "blocking": [],
+        "advisory": [],
+        "mandatory": [
+          "autonomy",
+          "contestability",
+          "proportionality",
+          "data_sovereignty"
+        ],
+        "evidenced": [
+          "autonomy",
+          "contestability",
+          "data_sovereignty",
+          "proportionality"
+        ]
+      },
+      "transitions": {
+        "state": "adjudicated",
+        "legal": [
+          "released",
+          "contested",
+          "blocked"
+        ],
+        "refused": [
+          {
+            "target": "draft",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge adjudicated -> draft"
+          },
+          {
+            "target": "evidenced",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge adjudicated -> evidenced"
+          },
+          {
+            "target": "remediated",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge adjudicated -> remediated"
+          },
+          {
+            "target": "adjudicated",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge adjudicated -> adjudicated"
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "CASE-0004",
+      "state": "blocked",
+      "system": "benefits-eligibility",
+      "domain": "benefits",
+      "verdict": {
+        "caseId": "CASE-0004",
+        "domain": "benefits",
+        "system": "benefits-eligibility",
+        "index": 9,
+        "band": "insufficient",
+        "releasable": false,
+        "components": [
+          {
+            "harmClass": "autonomy",
+            "weight": 25,
+            "score": 0,
+            "rationale": "the decision is automated and no human reviews it"
+          },
+          {
+            "harmClass": "contestability",
+            "weight": 20,
+            "score": 0,
+            "rationale": "there is no appeal route for a person affected by the outcome"
+          },
+          {
+            "harmClass": "proportionality",
+            "weight": 15,
+            "score": 40,
+            "rationale": "affects 900000 people; continuous monitoring: True"
+          },
+          {
+            "harmClass": "transparency",
+            "weight": 15,
+            "score": 0,
+            "rationale": "0/3 mandatory harm classes carry an evidence reference"
+          },
+          {
+            "harmClass": "data_sovereignty",
+            "weight": 15,
+            "score": 25,
+            "rationale": "trains on people: True; special categories: 1; proxy variables: 1"
+          },
+          {
+            "harmClass": "reversibility",
+            "weight": 10,
+            "score": 0,
+            "rationale": "a decision cannot be undone"
+          }
+        ],
+        "blocking": [
+          {
+            "code": "NO_HUMAN_REVIEW",
+            "severity": "blocking",
+            "message": "the decision is automated and no human reviews it before it takes effect"
+          },
+          {
+            "code": "NO_APPEAL",
+            "severity": "blocking",
+            "message": "benefits decisions require an appeal route for the person affected"
+          },
+          {
+            "code": "IRREVERSIBLE_HIGH_IMPACT",
+            "severity": "blocking",
+            "message": "a benefits decision that cannot be undone cannot be released"
+          },
+          {
+            "code": "SPECIAL_CATEGORY_UNEVIDENCED",
+            "severity": "blocking",
+            "message": "special category 'health' is declared but data_sovereignty carries no evidence reference"
+          }
+        ],
+        "advisory": [
+          {
+            "code": "PROXY_VARIABLES",
+            "severity": "advisory",
+            "message": "1 proxy variable(s) declared: postcode"
+          },
+          {
+            "code": "CONTINUOUS_MONITORING",
+            "severity": "advisory",
+            "message": "the system keeps observing people after the decision"
+          },
+          {
+            "code": "EVIDENCE_INCOMPLETE",
+            "severity": "advisory",
+            "message": "mandatory harm classes still lacking an evidence reference: autonomy, contestability, proportionality"
+          }
+        ],
+        "mandatory": [
+          "autonomy",
+          "contestability",
+          "proportionality"
+        ],
+        "evidenced": []
+      },
+      "transitions": {
+        "state": "blocked",
+        "legal": [
+          "draft"
+        ],
+        "refused": [
+          {
+            "target": "evidenced",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge blocked -> evidenced"
+          },
+          {
+            "target": "contested",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge blocked -> contested"
+          },
+          {
+            "target": "remediated",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge blocked -> remediated"
+          },
+          {
+            "target": "adjudicated",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge blocked -> adjudicated"
+          },
+          {
+            "target": "released",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge blocked -> released"
+          },
+          {
+            "target": "blocked",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge blocked -> blocked"
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "CASE-0005",
+      "state": "contested",
+      "system": "attendance-risk",
+      "domain": "education",
+      "verdict": {
+        "caseId": "CASE-0005",
+        "domain": "education",
+        "system": "attendance-risk",
+        "index": 66,
+        "band": "clear",
+        "releasable": true,
+        "components": [
+          {
+            "harmClass": "autonomy",
+            "weight": 25,
+            "score": 70,
+            "rationale": "automated, human-reviewed, and contestable"
+          },
+          {
+            "harmClass": "contestability",
+            "weight": 20,
+            "score": 40,
+            "rationale": "appealable within 720h (longer than 14 days)"
+          },
+          {
+            "harmClass": "proportionality",
+            "weight": 15,
+            "score": 60,
+            "rationale": "affects 42000 people; continuous monitoring: True"
+          },
+          {
+            "harmClass": "transparency",
+            "weight": 15,
+            "score": 66,
+            "rationale": "2/3 mandatory harm classes carry an evidence reference"
+          },
+          {
+            "harmClass": "data_sovereignty",
+            "weight": 15,
+            "score": 80,
+            "rationale": "trains on people: False; proxy variables: 1"
+          },
+          {
+            "harmClass": "reversibility",
+            "weight": 10,
+            "score": 100,
+            "rationale": "a decision can be undone"
+          }
+        ],
+        "blocking": [],
+        "advisory": [
+          {
+            "code": "SLOW_APPEAL",
+            "severity": "advisory",
+            "message": "appeal SLA is 720h; 14 days is the outer good-practice line"
+          },
+          {
+            "code": "PROXY_VARIABLES",
+            "severity": "advisory",
+            "message": "1 proxy variable(s) declared: postcode"
+          },
+          {
+            "code": "CONTINUOUS_MONITORING",
+            "severity": "advisory",
+            "message": "the system keeps observing people after the decision"
+          },
+          {
+            "code": "EVIDENCE_INCOMPLETE",
+            "severity": "advisory",
+            "message": "mandatory harm classes still lacking an evidence reference: transparency"
+          }
+        ],
+        "mandatory": [
+          "autonomy",
+          "contestability",
+          "transparency"
+        ],
+        "evidenced": [
+          "autonomy",
+          "contestability"
+        ]
+      },
+      "transitions": {
+        "state": "contested",
+        "legal": [
+          "remediated",
+          "blocked"
+        ],
+        "refused": [
+          {
+            "target": "draft",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge contested -> draft"
+          },
+          {
+            "target": "evidenced",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge contested -> evidenced"
+          },
+          {
+            "target": "contested",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge contested -> contested"
+          },
+          {
+            "target": "adjudicated",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge contested -> adjudicated"
+          },
+          {
+            "target": "released",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge contested -> released"
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "CASE-0006",
+      "state": "remediated",
+      "system": "welfare-fraud-score",
+      "domain": "welfare",
+      "verdict": {
+        "caseId": "CASE-0006",
+        "domain": "welfare",
+        "system": "welfare-fraud-score",
+        "index": 70,
+        "band": "clear",
+        "releasable": true,
+        "components": [
+          {
+            "harmClass": "autonomy",
+            "weight": 25,
+            "score": 70,
+            "rationale": "automated, human-reviewed, and contestable"
+          },
+          {
+            "harmClass": "contestability",
+            "weight": 20,
+            "score": 70,
+            "rationale": "appealable within 336h (longer than the 72h good-practice line)"
+          },
+          {
+            "harmClass": "proportionality",
+            "weight": 15,
+            "score": 65,
+            "rationale": "affects 310000 people; continuous monitoring: False"
+          },
+          {
+            "harmClass": "transparency",
+            "weight": 15,
+            "score": 100,
+            "rationale": "3/3 mandatory harm classes carry an evidence reference"
+          },
+          {
+            "harmClass": "data_sovereignty",
+            "weight": 15,
+            "score": 30,
+            "rationale": "trains on people: True; proxy variables: 2"
+          },
+          {
+            "harmClass": "reversibility",
+            "weight": 10,
+            "score": 100,
+            "rationale": "a decision can be undone"
+          }
+        ],
+        "blocking": [],
+        "advisory": [
+          {
+            "code": "PROXY_VARIABLES",
+            "severity": "advisory",
+            "message": "2 proxy variable(s) declared: device, postcode"
+          }
+        ],
+        "mandatory": [
+          "autonomy",
+          "contestability",
+          "data_sovereignty"
+        ],
+        "evidenced": [
+          "autonomy",
+          "contestability",
+          "data_sovereignty"
+        ]
+      },
+      "transitions": {
+        "state": "remediated",
+        "legal": [
+          "adjudicated",
+          "contested",
+          "blocked"
+        ],
+        "refused": [
+          {
+            "target": "draft",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge remediated -> draft"
+          },
+          {
+            "target": "evidenced",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge remediated -> evidenced"
+          },
+          {
+            "target": "remediated",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge remediated -> remediated"
+          },
+          {
+            "target": "released",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge remediated -> released"
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "CASE-0007",
+      "state": "released",
+      "system": "content-moderation-queue",
+      "domain": "moderation",
+      "verdict": {
+        "caseId": "CASE-0007",
+        "domain": "moderation",
+        "system": "content-moderation-queue",
+        "index": 83,
+        "band": "clear",
+        "releasable": true,
+        "components": [
+          {
+            "harmClass": "autonomy",
+            "weight": 25,
+            "score": 70,
+            "rationale": "automated, human-reviewed, and contestable"
+          },
+          {
+            "harmClass": "contestability",
+            "weight": 20,
+            "score": 100,
+            "rationale": "appealable within 48h"
+          },
+          {
+            "harmClass": "proportionality",
+            "weight": 15,
+            "score": 40,
+            "rationale": "affects 8200000 people; continuous monitoring: False"
+          },
+          {
+            "harmClass": "transparency",
+            "weight": 15,
+            "score": 100,
+            "rationale": "3/3 mandatory harm classes carry an evidence reference"
+          },
+          {
+            "harmClass": "data_sovereignty",
+            "weight": 15,
+            "score": 100,
+            "rationale": "trains on people: False"
+          },
+          {
+            "harmClass": "reversibility",
+            "weight": 10,
+            "score": 100,
+            "rationale": "a decision can be undone"
+          }
+        ],
+        "blocking": [],
+        "advisory": [],
+        "mandatory": [
+          "contestability",
+          "transparency",
+          "reversibility"
+        ],
+        "evidenced": [
+          "contestability",
+          "reversibility",
+          "transparency"
+        ]
+      },
+      "transitions": {
+        "state": "released",
+        "legal": [
+          "blocked"
+        ],
+        "refused": [
+          {
+            "target": "draft",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge released -> draft"
+          },
+          {
+            "target": "evidenced",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge released -> evidenced"
+          },
+          {
+            "target": "contested",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge released -> contested"
+          },
+          {
+            "target": "remediated",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge released -> remediated"
+          },
+          {
+            "target": "adjudicated",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge released -> adjudicated"
+          },
+          {
+            "target": "released",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge released -> released"
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "CASE-0008",
+      "state": "adjudicated",
+      "system": "legal-case-prioritisation",
+      "domain": "legal",
+      "verdict": {
+        "caseId": "CASE-0008",
+        "domain": "legal",
+        "system": "legal-case-prioritisation",
+        "index": 71,
+        "band": "clear",
+        "releasable": true,
+        "components": [
+          {
+            "harmClass": "autonomy",
+            "weight": 25,
+            "score": 70,
+            "rationale": "automated, human-reviewed, and contestable"
+          },
+          {
+            "harmClass": "contestability",
+            "weight": 20,
+            "score": 40,
+            "rationale": "appealable within 2160h (longer than 14 days)"
+          },
+          {
+            "harmClass": "proportionality",
+            "weight": 15,
+            "score": 85,
+            "rationale": "affects 12000 people; continuous monitoring: False"
+          },
+          {
+            "harmClass": "transparency",
+            "weight": 15,
+            "score": 75,
+            "rationale": "3/4 mandatory harm classes carry an evidence reference"
+          },
+          {
+            "harmClass": "data_sovereignty",
+            "weight": 15,
+            "score": 80,
+            "rationale": "trains on people: False; proxy variables: 1"
+          },
+          {
+            "harmClass": "reversibility",
+            "weight": 10,
+            "score": 100,
+            "rationale": "a decision can be undone"
+          }
+        ],
+        "blocking": [],
+        "advisory": [
+          {
+            "code": "SLOW_APPEAL",
+            "severity": "advisory",
+            "message": "appeal SLA is 2160h; 14 days is the outer good-practice line"
+          },
+          {
+            "code": "PROXY_VARIABLES",
+            "severity": "advisory",
+            "message": "1 proxy variable(s) declared: name"
+          },
+          {
+            "code": "EVIDENCE_INCOMPLETE",
+            "severity": "advisory",
+            "message": "mandatory harm classes still lacking an evidence reference: reversibility"
+          }
+        ],
+        "mandatory": [
+          "autonomy",
+          "contestability",
+          "proportionality",
+          "reversibility"
+        ],
+        "evidenced": [
+          "autonomy",
+          "contestability",
+          "proportionality"
+        ]
+      },
+      "transitions": {
+        "state": "adjudicated",
+        "legal": [
+          "released",
+          "contested",
+          "blocked"
+        ],
+        "refused": [
+          {
+            "target": "draft",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge adjudicated -> draft"
+          },
+          {
+            "target": "evidenced",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge adjudicated -> evidenced"
+          },
+          {
+            "target": "remediated",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge adjudicated -> remediated"
+          },
+          {
+            "target": "adjudicated",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge adjudicated -> adjudicated"
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "CASE-0009",
+      "state": "released",
+      "system": "feed-recommender",
+      "domain": "recommendation",
+      "verdict": {
+        "caseId": "CASE-0009",
+        "domain": "recommendation",
+        "system": "feed-recommender",
+        "index": 75,
+        "band": "clear",
+        "releasable": true,
+        "components": [
+          {
+            "harmClass": "autonomy",
+            "weight": 25,
+            "score": 70,
+            "rationale": "automated, human-reviewed, and contestable"
+          },
+          {
+            "harmClass": "contestability",
+            "weight": 20,
+            "score": 100,
+            "rationale": "appealable within 24h"
+          },
+          {
+            "harmClass": "proportionality",
+            "weight": 15,
+            "score": 15,
+            "rationale": "affects 1500000 people; continuous monitoring: True"
+          },
+          {
+            "harmClass": "transparency",
+            "weight": 15,
+            "score": 100,
+            "rationale": "2/2 mandatory harm classes carry an evidence reference"
+          },
+          {
+            "harmClass": "data_sovereignty",
+            "weight": 15,
+            "score": 70,
+            "rationale": "trains on people: True"
+          },
+          {
+            "harmClass": "reversibility",
+            "weight": 10,
+            "score": 100,
+            "rationale": "a decision can be undone"
+          }
+        ],
+        "blocking": [],
+        "advisory": [
+          {
+            "code": "CONTINUOUS_MONITORING",
+            "severity": "advisory",
+            "message": "the system keeps observing people after the decision"
+          }
+        ],
+        "mandatory": [
+          "autonomy",
+          "transparency"
+        ],
+        "evidenced": [
+          "autonomy",
+          "transparency"
+        ]
+      },
+      "transitions": {
+        "state": "released",
+        "legal": [
+          "blocked"
+        ],
+        "refused": [
+          {
+            "target": "draft",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge released -> draft"
+          },
+          {
+            "target": "evidenced",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge released -> evidenced"
+          },
+          {
+            "target": "contested",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge released -> contested"
+          },
+          {
+            "target": "remediated",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge released -> remediated"
+          },
+          {
+            "target": "adjudicated",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge released -> adjudicated"
+          },
+          {
+            "target": "released",
+            "code": "TRANSITION_ILLEGAL",
+            "message": "the transition table has no edge released -> released"
+          }
+        ]
+      }
+    }
+  ]
+}
