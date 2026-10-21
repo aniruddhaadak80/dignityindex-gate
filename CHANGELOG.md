@@ -40,6 +40,14 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `.prettierignore` excludes `apps/web/lib/generated`; the generator's output is canonical and
   reformatting it would make the drift gate permanently red.
 
+### Fixed
+
+- The permission check was a rank ceiling instead of a set, so `ToolRegistry.invoke` admitted
+  every permission ranked at or below the highest one granted. An empty grant still admitted
+  `fs:read`, and the CLI's grant of `fs:read`, `net:fetch` and `proc:spawn` also admitted
+  `env:read` and `fs:write`. `isSatisfied` now tests membership, which is what README,
+  SECURITY.md and `docs/architecture.md` all describe.
+
 ### Omitted
 
 - Desktop shell, and model providers on the verdict path. Both with stated reasons in

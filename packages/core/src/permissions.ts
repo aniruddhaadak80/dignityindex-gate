@@ -18,10 +18,17 @@ export function rank(permission: Permission): number {
 /**
  * The product runs sandboxed by default. A tool may only use permissions the caller
  * granted; anything beyond that is refused before the handler runs, not caught after.
+ *
+ * The check is set membership, deliberately NOT a comparison of escalation ranks. Ranking
+ * is a display order: granting `proc:spawn` says nothing about `fs:write`, and a rank
+ * ceiling silently admits every permission below the highest one granted — so a caller
+ * holding only `fs:read`, `net:fetch` and `proc:spawn` would also get `env:read` and
+ * `fs:write`, and an empty grant would get `fs:read`. Only `PERMISSION_RANK` knows which
+ * strings exist; membership decides what is allowed.
  */
 export function isSatisfied(required: readonly Permission[], granted: readonly Permission[]): boolean {
-  const ceiling = granted.length === 0 ? 0 : Math.max(...granted.map(rank))
-  return required.every((p) => rank(p) <= ceiling)
+  const held = new Set<Permission>(granted)
+  return required.every((permission) => held.has(permission))
 }
 
 export function describePermissions(permissions: readonly Permission[]): string {
