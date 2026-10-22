@@ -7,6 +7,14 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+- The blocking finding `SPECIAL_CATEGORY_UNEVIDENCED` now checks the declaration's *whole*
+  evidence set instead of the classes mandatory for the declaration's domain.
+  `data_sovereignty` is mandatory for `credit` and `welfare` only, so the mandatory-filtered
+  set made the rule unsatisfiable -- and the finding blocking -- in the other seven domains,
+  refusing release for declarations that did carry the evidence.
+
 ### Added
 
 - The product: a review gate for AI systems that decide things about people. A declaration of

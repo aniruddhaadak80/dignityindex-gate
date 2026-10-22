@@ -370,7 +370,10 @@ def _score_contestability(declaration: Declaration) -> tuple[int, str]:
     if sla <= APPEAL_FAST_HOURS:
         return 100, f"appealable within {sla}h"
     if sla <= APPEAL_MAX_HOURS:
-        return 70, f"appealable within {sla}h (longer than the {APPEAL_FAST_HOURS}h good-practice line)"
+        return (
+            70,
+            f"appealable within {sla}h (longer than the {APPEAL_FAST_HOURS}h good-practice line)",
+        )
     return 40, f"appealable within {sla}h (longer than {APPEAL_MAX_HOURS // 24} days)"
 
 
@@ -394,13 +397,24 @@ def mandatory_classes(declaration: Declaration) -> list[str]:
     return list(MANDATORY_BY_DOMAIN[declaration["domain"]])
 
 
-def evidenced_classes(declaration: Declaration) -> list[str]:
-    """A mandatory class counts as evidenced only with a non-empty reference."""
+def evidenced_harm_classes(declaration: Declaration) -> list[str]:
+    """Every harm class the declaration carries an evidence reference for.
+
+    Unlike :func:`evidenced_classes` this is *not* filtered to the domain's mandatory
+    classes. A rule that asks "is this harm class evidenced?" has to be answerable for any
+    harm class, not only the ones the domain happens to require.
+    """
     seen: set[str] = set()
     for item in declaration["evidence"]:
         if item["ref"].strip():
             seen.add(item["harmClass"])
-    return sorted(seen & set(mandatory_classes(declaration)))
+    return sorted(seen)
+
+
+def evidenced_classes(declaration: Declaration) -> list[str]:
+    """A mandatory class counts as evidenced only with a non-empty reference."""
+    mandatory = set(mandatory_classes(declaration))
+    return [name for name in evidenced_harm_classes(declaration) if name in mandatory]
 
 
 def _missing_mandatory(declaration: Declaration) -> list[str]:
@@ -498,7 +512,10 @@ def blocking_findings(declaration: Declaration) -> list[Finding]:
             )
         )
 
-    evidenced = set(evidenced_classes(declaration))
+    # The full evidence set, not the mandatory-only one: `data_sovereignty` is mandatory for
+    # `credit` and `welfare` only, so a mandatory-filtered set would make this rule
+    # unsatisfiable -- and the finding blocking -- in the other seven domains.
+    evidenced = set(evidenced_harm_classes(declaration))
     for special in declaration["data"]["specialCategories"]:
         if "data_sovereignty" not in evidenced:
             findings.append(
@@ -627,9 +644,7 @@ FLOORS_BY_TARGET: Final[dict[str, int]] = {
 }
 
 
-def _guard_evidence(
-    declaration: Declaration, state: str, target: str
-) -> RefusedEdge | None:
+def _guard_evidence(declaration: Declaration, state: str, target: str) -> RefusedEdge | None:
     """draft -> evidenced requires a reference for every mandatory harm class."""
     if state != "draft" or target != "evidenced":
         return None
@@ -655,9 +670,7 @@ def _guard_floor(target: str, verdict: Verdict) -> RefusedEdge | None:
     )
 
 
-def _guard_blocking(
-    target: str, verdict: Verdict, *, at_release: bool
-) -> RefusedEdge | None:
+def _guard_blocking(target: str, verdict: Verdict, *, at_release: bool) -> RefusedEdge | None:
     """A floor-gated target also refuses while a blocking finding is open."""
     if target not in FLOORS_BY_TARGET or not verdict["blocking"]:
         return None

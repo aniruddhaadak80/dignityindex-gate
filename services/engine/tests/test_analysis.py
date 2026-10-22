@@ -123,6 +123,35 @@ class TestScore:
         verdict = score(declaration(specials=("health",), evidence=(("autonomy", "doc://a"),)))
         assert "SPECIAL_CATEGORY_UNEVIDENCED" in {f["code"] for f in verdict["blocking"]}
 
+    def test_special_categories_are_not_blocked_when_data_sovereignty_is_evidenced(self) -> None:
+        # `data_sovereignty` is mandatory for `credit` and `welfare` only, so the special
+        # category rule has to look at the declaration's whole evidence set. Otherwise the
+        # finding is unsatisfiable -- and blocking -- in the other seven domains.
+        verdict = score(
+            declaration(
+                domain="hiring",
+                specials=("health",),
+                evidence=(
+                    ("autonomy", "doc://a"),
+                    ("contestability", "doc://b"),
+                    ("transparency", "doc://c"),
+                    ("data_sovereignty", "doc://d"),
+                ),
+            )
+        )
+        assert "SPECIAL_CATEGORY_UNEVIDENCED" not in {f["code"] for f in verdict["blocking"]}
+        assert verdict["releasable"] is True
+
+    def test_special_categories_are_still_blocked_when_the_reference_is_blank(self) -> None:
+        verdict = score(
+            declaration(
+                domain="hiring",
+                specials=("health",),
+                evidence=(("data_sovereignty", "   "),),
+            )
+        )
+        assert "SPECIAL_CATEGORY_UNEVIDENCED" in {f["code"] for f in verdict["blocking"]}
+
     def test_transparency_tracks_evidenced_mandatory_classes(self) -> None:
         none_evidenced = score(declaration(evidence=()))
         full = score(declaration(evidence=FULL_EVIDENCE))
@@ -252,9 +281,7 @@ class TestAdvance:
     def test_cannot_release_below_the_release_floor(self) -> None:
         """Falls below the floor on the index alone, with no blocking finding, so the refusal
         is specifically the floor rather than a blocking finding."""
-        weak = declaration(
-            evidence=(), sla=24 * 365, population=5_000_000, monitors=True
-        )
+        weak = declaration(evidence=(), sla=24 * 365, population=5_000_000, monitors=True)
         verdict = score(weak)
         assert verdict["blocking"] == []
         assert verdict["index"] < RELEASE_FLOOR
@@ -351,9 +378,7 @@ class TestBoard:
         assert result["meanIndex"] == 0
 
     def test_rows_carry_only_legal_next_states(self) -> None:
-        result = board(
-            {"cases": [{"declaration": declaration(evidence=()), "state": "draft"}]}
-        )
+        result = board({"cases": [{"declaration": declaration(evidence=()), "state": "draft"}]})
         row = result["columns"]["draft"][0]
         assert "evidenced" not in row["next"]
         assert set(row["next"]) <= set(TRANSITIONS["draft"])
@@ -418,9 +443,7 @@ class TestProperties:
         DECLARATION_KWARGS,
         st.lists(
             st.tuples(
-                st.sampled_from(
-                    ["autonomy", "reversibility", "contestability", "transparency"]
-                ),
+                st.sampled_from(["autonomy", "reversibility", "contestability", "transparency"]),
                 st.text(alphabet="abcdefghijklmnopqrstuvwxyz0123456789", min_size=1, max_size=6),
             ),
             max_size=4,
@@ -472,9 +495,7 @@ class TestProperties:
 
     @settings(max_examples=30, deadline=None)
     @given(st.lists(st.tuples(DECLARATION_KWARGS, st.sampled_from(STATES)), max_size=8))
-    def test_board_conserves_rows(
-        self, cases: list[tuple[dict[str, Any], str]]
-    ) -> None:
+    def test_board_conserves_rows(self, cases: list[tuple[dict[str, Any], str]]) -> None:
         payload = [
             {"declaration": declaration(**kwargs), "state": state} for kwargs, state in cases
         ]
