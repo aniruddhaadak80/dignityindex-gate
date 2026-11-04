@@ -24,8 +24,8 @@ export function CountUp({ value, durationMs = 700 }: CountUpProps) {
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (reduced || durationMs <= 0) {
-      setShown(value)
-      return
+      const frameId = requestAnimationFrame(() => setShown(value))
+      return () => cancelAnimationFrame(frameId)
     }
 
     const start = performance.now()
